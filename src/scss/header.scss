@@ -1,5 +1,10 @@
 //====================================================================================================
 .header {
+	position: absolute;
+	width: 100%;	
+	left: 0;
+	top: 0;
+	z-index: 50;
 
 	&__container {
 	}
@@ -9,7 +14,7 @@
 		min-height: 60px;
 		align-items: center;
 		column-gap: 50px;
-		padding: 5px 0px;
+		padding: 5px 0px;				
 		@media (min-width:$tablet){
 			column-gap: 68px;
 		}
@@ -19,22 +24,21 @@
 	}
 
 	&__logo {
-		flex: 0 0 auto;
-		z-index: 5;
+		flex: 0 0 auto;				
 	}
 
 	&__menu {
 		flex: 1 1 auto;
 	}
 }
-.menu {
 
+.menu {
 	&__body {
 		font-weight: 500;
 		line-height: 1.19;	
 		@media (max-width:$mobile){
 			position: fixed;
-			width: 290px;
+			width: 250px;
 			height: 100%;
 			right: -100%;
 			top: 0;
@@ -44,7 +48,7 @@
 			flex-direction: column-reverse;			
 			justify-content: start;
 			row-gap: 50px;
-			background: rgb(211,162,101);	
+			background-color:  $whiteColor;				
 			.menu-open & {
 				right: 0; 
 			 }			
@@ -54,17 +58,17 @@
 		  justify-content: space-between;			 
 	  }
 	}
-
+ 
 	&__navigation {
 		@media (min-width:$mobile){
 			padding-right: 20px;
-		}
-		
+		}		
 	}
 
 	&__options {
 	}
 }
+
 .navigation-menu {	
 	@media (min-width:$mobile){
 		display: flex;
@@ -113,9 +117,11 @@
 	&__select {
 	}
 }
-.icon-menu {
+.menu-open body::after {
+	@media (max-width:$mobile){
+		opacity: 1;
+	}
 }
-
 //====================================================================================================
 
 //Burger
@@ -127,8 +133,7 @@
 		display: block;
 		position: relative;
 		width: rem(30);
-		height: rem(18);
-		z-index: 5;
+		height: rem(18);		
 		@media (any-hover: none) {
 			cursor: default;
 		}

@@ -11,6 +11,358 @@
 следует его раскомментировать
 */
 
+
+let textElement = document.querySelector(".about__text");
+let readMoreButton = document.querySelector(".about__more");
+
+const ORIGINAL_HEIGHT = "original-height";
+const MIN_HEIGHT = "min-height";
+const HIDDEN_ATTR = "hidden-attr";
+
+// Show more для текстового блока About
+
+document.addEventListener("DOMContentLoaded", () => {
+	doClear(textElement);
+	doInit(textElement, textElement.children[0].clientHeight);
+	if (window.innerWidth <= 767.98) {
+		doHide(textElement);
+	}
+});
+
+window.addEventListener("resize", () => {
+	doClear(textElement);
+	doInit(textElement, textElement.children[0].clientHeight);
+
+	if (window.innerWidth <= 767.98) {
+		if (textElement.hasAttribute("forcibly-opened")) {
+			return;
+		}
+		doHide(textElement);
+	} else {
+		doShow(textElement);
+	}
+});
+
+readMoreButton.addEventListener("click", () => {
+	if (textElement.hasAttribute(HIDDEN_ATTR)) {
+		// есть аттрибут HIDDEN_ATTR, значит эдлемент скрыли перед этим
+		// показываем
+		doShow(textElement);
+		textElement.setAttribute("forcibly-opened", "")
+	} else {
+		// просто элемент, без спец. аттрибута, не скрыт,
+		// скрываем
+		doHide(textElement);
+		textElement.removeAttribute("forcibly-opened")
+	}
+
+	if (!textElement.hasAttribute(HIDDEN_ATTR)) {
+		readMoreButton.innerHTML = "HIDE";
+	} else {
+		readMoreButton.innerHTML = "READ MORE";
+	}
+});
+
+export let doClear = (target) => {
+	target.style.transition = "";
+	// убираем hidden у детей
+	for (let item = 0; item < target.children.length; item++) {
+		target.children[item].removeAttribute("hidden");
+	};
+	target.style.height = "auto";
+};
+
+export let doInit = (target, min_height) => {
+	target.setAttribute(ORIGINAL_HEIGHT, target.offsetHeight);
+	target.setAttribute(MIN_HEIGHT, min_height);
+	target.style.overflow = "hidden";
+};
+
+export let doHide = (target, hiddehElements = 1) => {
+	// метод скрытия элемента
+	target.setAttribute(HIDDEN_ATTR, "");
+
+	let min_height = target.getAttribute(MIN_HEIGHT);
+	target.style.height = min_height + "px";
+
+	for (let hiddehElements; hiddehElements < target.children.length; item++) {
+		target.children[hiddehElements].setAttribute("hidden", "true");
+	}
+
+	// window.setTimeout(() => {
+	// 	// устанавливаем hidden детям
+	// 	for (let item = 1; item < target.children.length; item++) {
+	// 		target.children[item].setAttribute("hidden", "true");
+	// 	}
+	// }, 1000);
+};
+
+export let doShow = (target, fast = false) => {
+	// метод показа элемента
+	if (!target.hasAttribute(HIDDEN_ATTR)) {
+		return;
+	}
+	target.removeAttribute(HIDDEN_ATTR);
+	let origHeight = target.getAttribute(ORIGINAL_HEIGHT);
+	target.style.transition = "height 0.6s ease 0s";
+	target.style.height = origHeight + "px";
+
+	// убираем hidden у детей
+	for (let item = 0; item < target.children.length; item++) {
+		target.children[item].removeAttribute("hidden");
+	}
+};
+
+// Viem more для блока Portfolio
+
+let bodyTabs = document.getElementsByClassName("body-tabs");
+let viewMoreButton = document.querySelector(".tabs-portfolio__more");
+let tubsNavigation = document.querySelector(".tabs-portfolio__navigation");
+
+export let getCurrentTab = () => {
+	for (let tab = 0; tab < bodyTabs.length; tab++) {
+		if (!bodyTabs[tab].hasAttribute("hidden")) {
+			return bodyTabs[tab];
+		}
+	}
+}
+export let loaded = () => {
+	let currentItems = getCurrentTab().children[0];
+
+	doClear(currentItems);
+
+	let items = currentItems.children;
+	let minSize = 0;
+	const NUM_OF_IMAGES = 3;
+	for (let i = 0; i < items.length && i < NUM_OF_IMAGES; i++) {
+		minSize += items[i].clientHeight;
+	}
+
+	doInit(currentItems, minSize);
+	if (window.innerWidth <= 599.98) {
+		doHide(currentItems, 3);
+	}
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+	loaded();
+});
+
+tubsNavigation.addEventListener("click", (event) => {
+	if (event.target.closest(".tabs-portfolio__button")) {
+		setTimeout(() => {
+			loaded();
+		});
+		// if (!viewMoreButton.hasAttribute("close"))
+		// 	viewMoreButton.setAttribute("close", "");
+		// viewMoreButton.innerHTML = "VIEW MORE";
+	}
+});
+
+window.addEventListener("resize", () => {
+	let currentItems = getCurrentTab().children[0];
+
+	doClear(currentItems);
+
+	let items = currentItems.children;
+	let minSize = 0;
+	const NUM_OF_IMAGES = 3;
+	for (let i = 0; i < items.length && i < NUM_OF_IMAGES; i++) {
+		minSize += items[i].clientHeight;
+	}
+
+	doInit(currentItems, minSize);
+
+	if (window.innerWidth <= 767.98) {
+		doHide(currentItems, 3);
+	} else {
+		doShow(currentItems);
+	}
+});
+
+viewMoreButton.addEventListener("click", () => {
+	let currentItems = getCurrentTab().children[0];
+
+	if (currentItems.hasAttribute(HIDDEN_ATTR)) {
+		doShow(currentItems);
+	} else {
+		doHide(currentItems, 3);
+	}
+
+	if (!currentItems.hasAttribute(HIDDEN_ATTR)) {
+		viewMoreButton.innerHTML = "HIDE";
+	} else {
+		viewMoreButton.innerHTML = "VIEW MORE";
+	}
+	// if (viewMoreButton.hasAttribute("close")) {
+	// 	viewMoreButton.removeAttribute("close");
+	// 	viewMoreButton.innerHTML = "HIDE";
+	// } else {
+	// 	viewMoreButton.setAttribute("close", "");
+	// 	viewMoreButton.innerHTML = "VIEW MORE";
+	// }
+});
+// document.addEventListener("DOMContentLoaded", () => {
+// 		if (window.innerWidth <= 599.98) {
+// 		for (let tab = 0; tab < bodyTabs.length; tab++) {
+// 			let bodyTabsItems = bodyTabs[tab].querySelector(".body-tabs__items");
+// 			let items = bodyTabsItems.children;
+// 			let minSize = 0;
+// 			const NUM_OF_IMAGES = 3;
+// 			for (let i = 0; i < items.length && i < NUM_OF_IMAGES; i++) {
+// 				minSize += items[i].clientHeight;
+// 				//minSize += Number(items[i].style.gridRowGap);
+// 			}
+// 			bodyTabsItems.setAttribute(MIN_HEIGHT, minSize);
+// 			doHide(bodyTabsItems, minSize);
+// 		}
+// 	}
+// });
+// document.addEventListener("DOMContentLoaded", () => {
+// 	if (window.innerWidth <= 479.98) {
+// 		for (let item = 0; item < bodyTabs.length; item++) {
+// 			if (!bodyTabs[item].hasAttribute("hidden")) {
+// 				// Оболочка внутри Таба
+// 				let bodyTabItem = bodyTabs[item].querySelector(".body-tabs__items");
+// 				// Коллекция изображений
+// 				let bodyTabImages = bodyTabItem.getElementsByClassName("body-tabs__item");
+// 				for (let item = 3; item < bodyTabImages.length; item++) {
+// 					bodyTabImages[item].setAttribute("hidden", "");
+// 				}
+// 			};
+// 		}
+// 	}
+// });
+
+// 
+// console.log(bodyTabsItems);
+
+
+
+// window.addEventListener("resize", () => {
+// 	if (window.innerWidth <= 599.98) {
+// 		for (let i = 0; i < bodyTabsItems.length; i++) {
+// 			// Коллекция изображений
+// 			let bodyTabImages = bodyTabsItems[i].getElementsByClassName("body-tabs__item");
+// 			for (let item = 3; item < bodyTabImages.length; item++) {
+// 				if (!bodyTabImages[item].hasAttribute("hidden")) {
+// 					bodyTabImages[item].setAttribute("hidden", "");
+// 				}
+// 			}
+// 		}
+// 	} else {
+// 		for (let i = 0; i < bodyTabsItems.length; i++) {
+// 			// Коллекция изображений
+// 			let bodyTabImages = bodyTabsItems[i].getElementsByClassName("body-tabs__item");
+// 			for (let item = 3; item < bodyTabImages.length; item++) {
+// 				bodyTabImages[item].removeAttribute("hidden");
+// 			}
+// 		}
+// 	}
+// })
+
+
+
+
+
+// document.addEventListener("DOMContentLoaded", () => {
+// 	if (window.innerWidth <= 767.98) {
+// 		for (let item = 0; item < textChildren.length; item++) {
+// 			console.log(textChildren[item].clientHeight);
+// 			// textChildren[item].setAttribute("hidden", "");
+// 		}
+// 	}
+// });
+// window.addEventListener("resize", () => {
+// 	if (window.innerWidth <= 767.98) {
+// 		for (let item = 1; item < textChildren.length; item++) {
+// 			if (!textChildren[item].hasAttribute("hidden")) {
+// 				textChildren[item].setAttribute("hidden", "");
+// 			}
+// 		}
+// 	} else {
+// 		for (let item = 1; item < textChildren.length; item++) {
+// 			textChildren[item].removeAttribute("hidden");
+// 		}
+// 	}
+// });
+
+
+
+
+// // эта ф-ция скрывает
+// export let _slideUp = (target, duration = 500, showmore = 0) => {
+// 	if (!target.classList.contains('_slide')) {
+// 		target.classList.add('_slide');
+// 		target.style.transitionProperty = 'height, margin, padding';
+// 		target.style.transitionDuration = duration + 'ms';
+// 		target.style.height = `${target.offsetHeight}px`;
+// 		target.offsetHeight;
+// 		target.style.overflow = 'hidden';
+// 		target.style.height = showmore ? `${showmore}px` : `0px`;
+// 		target.style.paddingTop = 0;
+// 		target.style.paddingBottom = 0;
+// 		target.style.marginTop = 0;
+// 		target.style.marginBottom = 0;
+// 		window.setTimeout(() => {
+// 			target.hidden = !showmore ? true : false;
+// 			!showmore ? target.style.removeProperty('height') : null;
+// 			target.style.removeProperty('padding-top');
+// 			target.style.removeProperty('padding-bottom');
+// 			target.style.removeProperty('margin-top');
+// 			target.style.removeProperty('margin-bottom');
+// 			!showmore ? target.style.removeProperty('overflow') : null;
+// 			target.style.removeProperty('transition-duration');
+// 			target.style.removeProperty('transition-property');
+// 			target.classList.remove('_slide');
+// 			// Створюємо подію 
+// 			document.dispatchEvent(new CustomEvent("slideUpDone", {
+// 				detail: {
+// 					target: target
+// 				}
+// 			}));
+// 		}, duration);
+// 	}
+// }
+// // эта ф-ция показывает
+// export let _slideDown = (target, duration = 500, showmore = 0) => {
+// 	if (!target.classList.contains('_slide')) {
+// 		target.classList.add('_slide');
+// 		target.hidden = target.hidden ? false : null;
+// 		showmore ? target.style.removeProperty('height') : null;
+// 		let height = target.offsetHeight;
+// 		target.style.overflow = 'hidden';
+// 		target.style.height = showmore ? `${showmore}px` : `0px`;
+// 		target.style.paddingTop = 0;
+// 		target.style.paddingBottom = 0;
+// 		target.style.marginTop = 0;
+// 		target.style.marginBottom = 0;
+// 		target.offsetHeight;
+// 		target.style.transitionProperty = "height, margin, padding";
+// 		target.style.transitionDuration = duration + 'ms';
+// 		target.style.height = height + 'px';
+// 		target.style.removeProperty('padding-top');
+// 		target.style.removeProperty('padding-bottom');
+// 		target.style.removeProperty('margin-top');
+// 		target.style.removeProperty('margin-bottom');
+// 		window.setTimeout(() => {
+// 			target.style.removeProperty('height');
+// 			target.style.removeProperty('overflow');
+// 			target.style.removeProperty('transition-duration');
+// 			target.style.removeProperty('transition-property');
+// 			target.classList.remove('_slide');
+// 			// Створюємо подію
+// 			document.dispatchEvent(new CustomEvent("slideDownDone", {
+// 				detail: {
+// 					target: target
+// 				}
+// 			}));
+// 		}, duration);
+// 	}
+// }
+
+
+
 // Включить / выключить FLS (Full Logging System) (в роботе)
 window['FLS'] = true;
 
@@ -46,7 +398,7 @@ flsFunctions.menuInit();
 Документация: https://template.fls.guru/template-docs/modul-taby.html
 Сниппет (HTML): tabs
 */
-// flsFunctions.tabs();
+flsFunctions.tabs();
 
 /*
 Модуль "Показать еще"
@@ -74,7 +426,7 @@ flsFunctions.menuInit();
 Документация: https://template.fls.guru/template-docs/funkcional-popup.html
 Сниппет (HTML): pl, pop
 */
-// import './libs/popup.js'
+import './libs/popup.js'
 
 /*
 Модуль параллакса мышью
@@ -147,7 +499,7 @@ import './libs/select.js'
 Документація плагіна: https://swiperjs.com/
 Сніппет(HTML): swiper
 */
-//import "./files/sliders.js";
+import "./files/sliders.js";
 
 // ========================================================================================================================================================================================================================================================
 // Модулі роботи з прокручуванням сторінки ========================================================================================================================================================================================================================================================

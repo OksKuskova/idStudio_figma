@@ -7,7 +7,7 @@
 // Підключаємо слайдер Swiper з node_modules
 // При необхідності підключаємо додаткові модулі слайдера, вказуючи їх у {} через кому
 // Приклад: { Navigation, Autoplay }
-import Swiper, { Navigation } from 'swiper';
+import Swiper, { Keyboard, Navigation, Pagination } from 'swiper';
 /*
 Основні модулі слайдера:
 Navigation, Pagination, Autoplay, 
@@ -32,12 +32,12 @@ function initSliders() {
 		new Swiper('.swiper', { // Вказуємо склас потрібного слайдера
 			// Підключаємо модулі слайдера
 			// для конкретного випадку
-			modules: [Navigation],
+			modules: [Navigation, Pagination, Keyboard],
 			observer: true,
 			observeParents: true,
-			slidesPerView: 1,
-			spaceBetween: 0,
-			autoHeight: true,
+			// slidesPerView: 2,
+			spaceBetween: 30,
+			autoHeight: false,
 			speed: 800,
 
 			//touchRatio: 0,
@@ -56,12 +56,26 @@ function initSliders() {
 			*/
 
 			// Пагінація
-			/*
+
 			pagination: {
 				el: '.swiper-pagination',
 				clickable: true,
 			},
-			*/
+
+			keyboard: {
+				enabled: true,
+				onlyInViewport: true,
+			},
+
+			breakpoints: {
+				320: {
+					slidesPerView: 1,
+				},
+				991.98: {
+					slidesPerView: 2,
+				}
+			},
+
 
 			// Скроллбар
 			/*
@@ -72,10 +86,10 @@ function initSliders() {
 			*/
 
 			// Кнопки "вліво/вправо"
-			navigation: {
-				prevEl: '.swiper-button-prev',
-				nextEl: '.swiper-button-next',
-			},
+			// navigation: {
+			// 	prevEl: '.swiper-button-prev',
+			// 	nextEl: '.swiper-button-next',
+			// },
 			/*
 			// Брейкпоінти
 			breakpoints: {

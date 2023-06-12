@@ -1,10 +1,18 @@
 <div id="popup" aria-hidden="true" class="popup">
 	<div class="popup__wrapper">
 		<div class="popup__content">
-			<button data-close type="button" class="popup__close">Закрити</button>
-			<div class="popup__text">
-				Text
-			</div>
+			<button data-close type="button" class="popup__close">✖</button>
+			<form action="" class="popup__form form-popup">
+				<div class="form-popup__group">
+					<label for="name" class="form-popup__label">your name</label>
+					<input type="text" class="form-popup__input" name="name" id="name">
+				</div>
+				<div class="form-popup__group">
+					<label for="phone" class="form-popup__label">your phone number</label>
+					<input type="tel" class="form-popup__input" name="phone" id="phone">
+				</div>
+				<button type="submit" class="form-popup__btn button button_hover">order a call</button>
+			</form>
 		</div>
 	</div>
 </div>

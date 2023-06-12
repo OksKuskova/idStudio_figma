@@ -1,15 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
-	@@include('html/_head.htm',{
-	"title":"HomePage"
-	})
-	<body>
-		<div class="wrapper">
-			@@include('html/_header.htm',{})
-			<main class="page">
-			</main>
-			@@include('html/_footer.htm',{})
-		</div>
-		@@include('html/_js.htm',{})
-	</body>
+@@include('html/_head.htm',{
+"title":"HomePage"
+})
+
+<body>
+	<div class="wrapper">
+		@@include('html/_header.htm',{})
+		<main class="page">
+			<section class="page__main main">
+				<div class="main__content">
+					<div class="main__container">
+						<div class="main__body">
+							<h1 class="main__title">We create your space better</h1>
+							<div class="main__text text">Our team creates comfortable spaces for our clients. We’ve been
+								designing your everyday life and work through great ideas since 1999.
+							</div>
+							<div class="main__action action">
+								<button type="button" data-popup="#popup" class="main__btn button button_hover">Get started
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="main__image">
+					<img src="@img/main_img.png" alt="Image">
+				</div>
+			</section>
+			<section class="page__about about about_backgroundGray">
+				<div class="about__container">
+					<div class="about__body">
+						<h2 class="about__title title title_left">About <br>
+							<span>Studio</span>
+						</h2>
+						<div class="about__text text">
+							<p>Interiart is an award-winning architecture and interior design practice based in NYC. We work
+								internationally on projects of residential & commercial interior design that require a
+								creative
+								approach. Our talented and experienced designers leverage their knowledge and expertise to
+								create
+								unique and comfortable interiors for you.
+							</p>
+							<p>Our team knows that interior design can be stressful for the client and we do our best to
+								make
+								it
+								as easy as possible. We listen to your needs, ideas, and inputs. And most importantly, we
+								make
+								it
+								exciting and enjoyable for our clients.
+							</p>
+							<p>Our team knows that interior design can be stressful for the client and we do our best to
+								make
+								it
+								as easy as possible. We listen to your needs, ideas, and inputs. And most importantly, we
+								make
+								it
+								exciting and enjoyable for our clients.
+							</p>
+							<p>Our team knows that interior design can be stressful for the client and we do our best to
+								make
+								it
+								as easy as possible. We listen to your needs, ideas, and inputs. And most importantly, we
+								make
+								it
+								exciting and enjoyable for our clients.
+							</p>
+						</div>
+						<button type="button" class="about__more show-more hover-underline">READ MORE</button>
+					</div>
+				</div>
+			</section>
+			<section class="page__services services">
+				<div class="services__container">
+					<h2 class="services__title title title_center">Our <span>Services</span></h2>
+					<div class="services__body">
+						<div class="services__item item-services">
+							<div class="item-services__icon">
+								<img src="@img/icons/icon_sofa.svg" alt="Icon">
+							</div>
+							<div class="item-services__body">
+								<div class="item-services__title">INTERIOR DESIGN</div>
+								<div class="item-services__text text text_gray">
+									Interior design services offer a vast variety of solutions for our clients’ homes and
+									offices.
+								</div>
+							</div>
+						</div>
+						<div class="services__item item-services">
+							<div class="item-services__icon">
+								<img src="@img/icons/icon_image.svg" alt="Icon">
+							</div>
+							<div class="item-services__body">
+								<div class="item-services__title">DECORATIVE SERVICES</div>
+								<div class="item-services__text text text_gray">
+									Our professional decorators will be happy to help you change your house’s inner look.
+								</div>
+							</div>
+						</div>
+						<div class="services__item item-services">
+							<div class="item-services__icon">
+								<img src="@img/icons/icon_up.svg" alt="Icon">
+							</div>
+							<div class="item-services__body">
+								<div class="item-services__title">SPACE PLANNING</div>
+								<div class="item-services__text text text_gray">
+									We create better interior experiences through our space planning services.
+								</div>
+							</div>
+						</div>
+						<div class="services__item item-services">
+							<div class="item-services__icon">
+								<img src="@img/icons/icon_penсil.svg" alt="Icon">
+							</div>
+							<div class="item-services__body">
+								<div class="item-services__title">PROJECT MANAGEMENT</div>
+								<div class="item-services__text text text_gray">
+									We provide proper project management as it’s one of the main success factors in interior
+									design.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="services__action action">
+						<button type="button" data-popup="#popup" class="services__btn button button_hover">Free consultation
+						</button>
+					</div>
+				</div>
+			</section>
+			<section class="page__portfolio portfolio portfolio_backgroundGray">
+				<div class="portfolio__container">
+					<h2 class="portfolio__title title title_center">Our <span>Portfolio</span></h2>
+					<div data-tabs class="portfolio__tabs tabs-portfolio">
+						<nav data-tabs-titles class="tabs-portfolio__navigation">
+							<button type="button" class="tabs-portfolio__button _tab-active hover-underline">ALL</button>
+							<button type="button" class="tabs-portfolio__button hover-underline">COMERCIAL</button>
+							<button type="button" class="tabs-portfolio__button hover-underline">RESIDENTIAL</button>
+							<button type="button" class="tabs-portfolio__button hover-underline">OFFICE</button>
+							<button type="button" class="tabs-portfolio__button hover-underline">OTHER</button>
+						</nav>
+						<div data-tabs-body class="tabs-portfolio__content">
+							<div class="tabs-portfolio__body body-tabs">
+								<div class="body-tabs__items">
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/01.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/02.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/03.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/04.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/05.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/06.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/07.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/08.jpg" alt="Image">
+									</div>
+								</div>
+							</div>
+							<div class="tabs-portfolio__body body-tabs">
+								<div class="body-tabs__items">
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/03.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/04.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/05.jpg" alt="Image">
+									</div>
+								</div>
+							</div>
+							<div class="tabs-portfolio__body body-tabs">
+								<div class="body-tabs__items">
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/06.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/07.jpg" alt="Image">
+									</div>
+								</div>
+							</div>
+							<div class="tabs-portfolio__body body-tabs">
+								<div class="body-tabs__items">
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/03.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/05.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/06.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/07.jpg" alt="Image">
+									</div>
+								</div>
+							</div>
+							<div class="tabs-portfolio__body body-tabs">
+								<div class="body-tabs__items">
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/03.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/04.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/05.jpg" alt="Image">
+									</div>
+									<div class="body-tabs__item">
+										<img src="@img/portfolio/06.jpg" alt="Image">
+									</div>
+								</div>
+							</div>
+						</div>
+						<button type="button" class="tabs-portfolio__more show-more hover-underline">VIEW MORE</button>
+					</div>
+				</div>
+			</section>
+			<section class="page__pricing pricing">
+				<div class="pricing__container">
+					<h2 class="pricing__title title title_center">Our <span>Pricing</span></h2>
+					<div class="pricing__items">
+						<div class="pricing__column">
+							<div class="pricing__item item-price">
+								<div class="item-price__body">
+									<div class="item-price__header">
+										<div class="item-price__title">Basic</div>
+										<div class="item-price__price"><span>$25</span><span class="item-price__subtitle">per
+												month</span></div>
+									</div>
+									<div class="item-price__services">
+										<p>Interior Design</p>
+										<p>Project Discussion</p>
+										<p>Space Planning</p>
+										<p>Online Consultation</p>
+									</div>
+								</div>
+								<div class="item-price__action action">
+									<a href="#" class="item-price__btn button">buy now
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="pricing__column">
+							<div class="pricing__item item-price">
+								<div class="item-price__body">
+									<div class="item-price__header">
+										<div class="item-price__title">Standart</div>
+										<div class="item-price__price">$50</div>
+										<div class="item-price__subtitle">per month</div>
+									</div>
+									<div class="item-price__services">
+										<p>Color Analysis</p>
+										<p>Space Planning</p>
+										<p>Home Remodeling</p>
+										<p>3D Interior Model</p>
+									</div>
+								</div>
+								<div class="item-price__action action">
+									<a href="#" class="item-price__btn button">buy now
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="pricing__column">
+							<div class="pricing__item item-price">
+								<div class="item-price__body">
+									<div class="item-price__header">
+										<div class="item-price__title">Premium</div>
+										<div class="item-price__price">$80</div>
+										<div class="item-price__subtitle">per month</div>
+									</div>
+									<div class="item-price__services">
+										<p>Concept Development</p>
+										<p>Decoration Services</p>
+										<p>Interior Architecture</p>
+										<p>Flooring Installation</p>
+									</div>
+								</div>
+								<div class="item-price__action action">
+									<a href="#" class="item-price__btn button">buy now
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="page__reviews reviews reviews_backgroundGray">
+				<div class="reviews__container">
+					<h2 class="reviews__title title title_center">What <span>People Say</span></h2>
+					<!-- Оболочка слайдера -->
+					<div class="reviews__slider swiper">
+						<!-- Движущаяся часть слайдера -->
+						<div class="reviews__wrapper swiper-wrapper">
+							<!-- Слайд -->
+							<div class="reviews__slide swiper-slide">
+								<div class="swiper-slide__author review-author">
+									<div class="review-author__icon">
+										<img src="@img/foto_woman.png" alt="Icon">
+									</div>
+									<div class="review-author__info author-info">
+										<div class="author-info__data">
+											<div class="author-info__name">
+												Annette Black
+											</div>
+											<div class="author-info__profession">Merchandising Associate</div>
+										</div>
+										<div class="author-info__social social">
+											<a href="https://twitter.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Twitter"></use>
+												</svg>
+											</a>
+											<a href="https://www.linkedin.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Linkedin"></use>
+												</svg>
+											</a>
+											<a href="https://www.facebook.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Fb"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-slide__review text">
+									Convallis non proin ac bibendum. At pharetra sed ultrices semper. Lectus et ornare ultrices
+									urna in. Id non fringilla dignissim ac risus amet eget egestas vestibulum. Aliquet etiam eget
+									nulla nulla odio vel.
+								</div>
+							</div>
+							<div class="reviews__slide swiper-slide">
+								<div class="swiper-slide__author review-author">
+									<div class="review-author__icon">
+										<img src="@img/foto_man.png" alt="Icon">
+									</div>
+									<div class="review-author__info author-info">
+										<div class="author-info__data">
+											<div class="author-info__name">
+												Marvin McKinney
+											</div>
+											<div class="author-info__profession">Administrator</div>
+										</div>
+										<div class="author-info__social social">
+											<a href="https://twitter.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Twitter"></use>
+												</svg>
+											</a>
+											<a href="https://www.linkedin.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Linkedin"></use>
+												</svg>
+											</a>
+											<a href="https://www.facebook.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Fb"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-slide__review text">
+									Leo viverra vestibulum amet, scelerisque. Vitae, ultrices mi rhoncus porttitor nulla sed
+									sodales. Curabitur tellus massa, lacinia non at. Lacus, hac fermentum, viverra tortor, eget.
+									Eget egestas eget ultrices vitae. Curabitur tellus massa, lacinia non at. Lacus, hac
+									fermentum, viverra tortor, eget. Eget egestas eget ultrices vitae.
+								</div>
+							</div>
+							<div class="reviews__slide swiper-slide">
+								<div class="swiper-slide__author review-author">
+									<div class="review-author__icon">
+										<img src="@img/foto_woman.png" alt="Icon">
+									</div>
+									<div class="review-author__info author-info">
+										<div class="author-info__data">
+											<div class="author-info__name">
+												Annette Black
+											</div>
+											<div class="author-info__profession">Merchandising Associate</div>
+										</div>
+										<div class="author-info__social social">
+											<a href="https://twitter.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Twitter"></use>
+												</svg>
+											</a>
+											<a href="https://www.linkedin.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Linkedin"></use>
+												</svg>
+											</a>
+											<a href="https://www.facebook.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Fb"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-slide__review text">
+									Convallis non proin ac bibendum. At pharetra sed ultrices semper. Lectus et ornare ultrices
+									urna in. Id non fringilla dignissim ac risus amet eget egestas vestibulum. Aliquet etiam eget
+									nulla nulla odio vel.
+								</div>
+							</div>
+							<div class="reviews__slide swiper-slide">
+								<div class="swiper-slide__author review-author">
+									<div class="review-author__icon">
+										<img src="@img/foto_man.png" alt="Icon">
+									</div>
+									<div class="review-author__info author-info">
+										<div class="author-info__data">
+											<div class="author-info__name">
+												Marvin McKinney
+											</div>
+											<div class="author-info__profession">Administrator</div>
+										</div>
+										<div class="author-info__social social">
+											<a href="https://twitter.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Twitter"></use>
+												</svg>
+											</a>
+											<a href="https://www.linkedin.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Linkedin"></use>
+												</svg>
+											</a>
+											<a href="https://www.facebook.com/" target="_blank" class="social__item">
+												<svg>
+													<use xlink:href="@img/icons/icons.svg#Fb"></use>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-slide__review text">
+									Leo viverra vestibulum amet, scelerisque. Vitae, ultrices mi rhoncus porttitor nulla sed
+									sodales. Curabitur tellus massa, lacinia non at. Lacus, hac fermentum, viverra tortor, eget.
+									Eget egestas eget ultrices vitae. Curabitur tellus massa, lacinia non at. Lacus, hac
+									fermentum, viverra tortor, eget. Eget egestas eget ultrices vitae.
+								</div>
+							</div>
+						</div>
+						<!-- Если нужна пагинация -->
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+
+			</section>
+			<section class="page__question question">
+				<div class="question__container">
+					<div class="question__body">
+						<h2 class="question__title title">Do you have <br><span>any question?</span></h2>
+						<div class="question__action action">
+							<button type="button" data-popup="#popup" class="question__btn button button_hover">order a
+								call</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
+		@@include('html/_footer.htm',{})
+	</div>
+	@@include('html/_popup.htm',{})
+	@@include('html/_js.htm',{})
+</body>
+
 </html>

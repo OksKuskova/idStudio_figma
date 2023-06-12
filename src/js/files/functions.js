@@ -275,7 +275,7 @@ export function spollers() {
 		}
 	}
 }
-// Модуль роботи з табами =======================================================================================================================================================================================================================
+// Модуль работы с табами =======================================================================================================================================================================================================================
 export function tabs() {
 	const tabs = document.querySelectorAll('[data-tabs]');
 	let tabsActiveHash = [];
@@ -292,7 +292,7 @@ export function tabs() {
 			initTabs(tabsBlock);
 		});
 
-		// Отримання слойлерів з медіа-запитами
+		// Получение слойлеров с медиа-запросами
 		let mdQueriesArray = dataMediaQueries(tabs, "tabs");
 		if (mdQueriesArray && mdQueriesArray.length) {
 			mdQueriesArray.forEach(mdQueriesItem => {
@@ -304,7 +304,7 @@ export function tabs() {
 			});
 		}
 	}
-	// Встановлення позицій заголовків
+	// Установка позиций заголовков
 	function setTitlePosition(tabsMediaArray, matchMedia) {
 		tabsMediaArray.forEach(tabsMediaItem => {
 			tabsMediaItem = tabsMediaItem.item;
@@ -326,7 +326,7 @@ export function tabs() {
 			});
 		});
 	}
-	// Робота з контентом
+	// Работа с контентом
 	function initTabs(tabsBlock) {
 		let tabsTitles = tabsBlock.querySelectorAll('[data-tabs-titles]>*');
 		let tabsContent = tabsBlock.querySelectorAll('[data-tabs-body]>*');
@@ -401,7 +401,7 @@ export function tabs() {
 		}
 	}
 }
-// Модуль роботи з меню (бургер) =======================================================================================================================================================================================================================
+// Модуль работы с меню (бургер) =======================================================================================================================================================================================================================
 export function menuInit() {
 	if (document.querySelector(".icon-menu")) {
 		document.addEventListener("click", function (e) {
@@ -427,21 +427,21 @@ export function showMore() {
 		let showMoreBlocksRegular;
 		let mdQueriesArray;
 		if (showMoreBlocks.length) {
-			// Отримання звичайних об'єктів
+			// Получение обычных объектов
 			showMoreBlocksRegular = Array.from(showMoreBlocks).filter(function (item, index, self) {
 				return !item.dataset.showmoreMedia;
 			});
-			// Ініціалізація звичайних об'єктів
+			// Инициализация обычных объектов
 			showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
 
 			document.addEventListener("click", showMoreActions);
 			window.addEventListener("resize", showMoreActions);
 
-			// Отримання об'єктів з медіа-запитами
+			// Получение объектов с медиа-запросами
 			mdQueriesArray = dataMediaQueries(showMoreBlocks, "showmoreMedia");
 			if (mdQueriesArray && mdQueriesArray.length) {
 				mdQueriesArray.forEach(mdQueriesItem => {
-					// Подія
+					// Событие
 					mdQueriesItem.matchMedia.addEventListener("change", function () {
 						initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
 					});

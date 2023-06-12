@@ -1,3 +1,170 @@
 //====================================================================================================
+.footer {
+	padding: 60px 0px 35px 0px;
+
+	@media (min-width:$mobile){
+		padding: 60px 0px 60px 0px; 
+	}
+	@media (min-width:$tablet){
+		padding: 92px 0px 92px 0px; 
+	}
+
+	&__container {
+	}
+
+	&__body {
+		display: grid;		
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, auto);
+		@media (max-width:$mobile){
+			row-gap: 67px;
+		}
+		@media (min-width:$mobile){
+			column-gap: 20px;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(2, auto);
+		}
+		
+	}
+
+	&__about {
+		@media (max-width:$mobile){
+			order: 1;
+		}	
+	}
+
+	&__navigation {		
+		justify-self: center;
+		@media (max-width:$mobileSmall){
+			display: none; 
+	  }
+	  @media (max-width:$mobile){
+		order: 4; 
+  }	 		
+	}
+
+	&__contacts {		
+		@media (max-width:$mobileSmall){
+			grid-column: span 2;
+		}
+		@media (max-width:$mobile){			
+			 order: 3; 
+		}
+		@media (min-width:$mobile){
+			grid-row: span 2;
+			justify-self: end;
+		}	
+	}
+
+	&__copyright {
+		@media (max-width:$mobile){
+			grid-column: span 2;
+			 order: 5; 
+		}
+		line-height: 1.5;
+		align-self: flex-end;
+	}
+
+	&__social {
+		justify-self: end;
+		align-self: center;
+		@media (max-width:$mobile){
+			order: 2;  			
+		}		
+		@media (min-width:$mobileSmall){
+			justify-self: center;  
+		}
+		@media (min-width:$mobile){			
+			align-self: flex-end; 
+		}		
+	}
+}
+
+.about-footer {
+
+	&__logo {				
+	}
+
+	&__text {
+		max-width: 300px;	
+		margin-top: 60px;
+		
+		@media (max-width:$mobile){
+			 display: none; 
+		}
+	}
+}
+
+.navigation-footer {
+	&__title {
+		&:not(:last-child) {
+			margin-bottom: 24px;
+		}
+	}
+
+	&__menu {
+	}
+}
+.footer-menu {
+
+	&__list {
+	}
+
+	&__item {
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__link {
+		font-size: rem(14);
+		line-height: 1.2;	
+	}
+}
+.contacts-footer {
+	& > div {
+		&:not(:last-child) {
+			margin-bottom: 24px;
+		}
+	}
+	@media (min-width:$mobile){
+		& > div {
+			&:not(:last-child) {
+				margin-bottom: 48px;
+			}
+		}
+	}	
+
+	&__title {
+		&:not(:last-child) {
+			margin-bottom: 24px;
+		}
+	}
+
+	&__adress {
+	}
+
+	&__subtitle {
+		font-weight: 500;
+		line-height: 1.5;
+		color: #878787;
+		&:not(:last-child) {
+			margin-bottom: 10px;
+		}
+	}
+
+	&__text {
+		font-size: rem(14);
+		line-height: 1.5;
+	}
+
+	&__email {
+	}
+
+	&__phones {
+	}
+}
+
+
 
 //====================================================================================================

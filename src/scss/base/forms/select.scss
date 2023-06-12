@@ -53,6 +53,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		text-transform: uppercase;
 	}
 	// .select__text
 	&__text {
@@ -75,6 +76,7 @@
 		left: 0;
 		background-color: transparent;
 		padding: 5px 0px 5px 0px;
+		text-transform: uppercase;
 	}
 	// .select__scroll
 	&__scroll {
