@@ -1,16 +1,155 @@
-/*
-(i) Код попадает в итоговый файл,
-только когда вызывается функция,
-например fls Functions.spollers();
-Или когда весь файл импортирован,
-например, import " files / script.js";
-Неиспользуемый (не вызываемый)
-код в итоговый файл не попадает.
+// Burger
+const iconMenu = document.querySelector('.icon-menu');
+function isMenuOpen() {
+	return document.documentElement.classList.contains("menu-open");
+}
 
-Если мы хотим добавить модуль
-следует его раскомментировать
-*/
+if (iconMenu) {
+	const menuBody = document.querySelector('.menu__body');
+	iconMenu.addEventListener('click', function (e) {
+		if (unlock) {
+			if (isMenuOpen()) {
+				menuClose();
+			} else {
+				menuOpen();
+			}
+		}
+	});
+}
+function menuOpen() {
+	document.documentElement.classList.add("menu-open");
+	bodyLock();
+}
+function menuClose() {
+	document.documentElement.classList.remove("menu-open");
+	bodyUnLock();
+}
 
+// Popup
+const popupLinks = document.querySelectorAll('.popup-link');
+const lockPadding = document.querySelectorAll('.lock-padding');
+const body = document.querySelector('body');
+
+let unlock = true;
+
+const timeout = 800;
+
+if (popupLinks.length > 0) {
+	for (let index = 0; index < popupLinks.length; index++) {
+		const popupLink = popupLinks[index];
+		popupLink.addEventListener('click', function (e) {
+			const popupName = popupLink.getAttribute('href').replace('#', '');
+			const curentPopup = document.getElementById(popupName);
+			popupOpen(curentPopup);
+			e.preventDefault();
+		});
+	}
+}
+const popupCloseIcon = document.querySelectorAll('.close-popup');
+if (popupCloseIcon.length > 0) {
+	for (let index = 0; index < popupCloseIcon.length; index++) {
+		const closeIcon = popupCloseIcon[index];
+		closeIcon.addEventListener('click', function (e) {
+			popupClose(closeIcon.closest('.popup'));
+			e.preventDefault();
+		})
+	}
+}
+
+function popupOpen(curentPopup) {
+	if (curentPopup && unlock) {
+		const popupActive = document.querySelector('.popup-show');
+		if (popupActive) {
+			popupClose(popupActive, false);
+		} else {
+			bodyLock();
+		}
+		document.documentElement.classList.add("popup-open");
+		curentPopup.classList.add('popup-show');
+		curentPopup.addEventListener('click', function (e) {
+			if (!e.target.closest('.popup__content')) {
+				popupClose(e.target.closest('.popup'));
+			}
+		});
+	}
+}
+
+function popupClose(popupActive, doUnlock = true) {
+	if (unlock) {
+		popupActive.classList.remove('popup-show');
+		if (doUnlock) {
+			bodyUnLock();
+			document.documentElement.classList.remove("popup-open");
+		}
+	}
+}
+
+function bodyLock() {
+	const lockPaddingValue = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+	// const lockPaddingValue = '17px';
+	if (lockPadding.length > 0) {
+		for (let index = 0; index < lockPadding.length; index++) {
+			const el = lockPadding[index];
+			el.style.paddingRight = lockPaddingValue;
+		}
+	}
+	body.style.paddingRight = lockPaddingValue;
+	body.classList.add('lock');
+
+	unlock = false;
+	setTimeout(function () {
+		unlock = true;
+	}, timeout);
+}
+
+function bodyUnLock() {
+	setTimeout(function () {
+		if (lockPadding.length > 0) {
+			for (let index = 0; index < lockPadding.length; index++) {
+				const el = lockPadding[index];
+				el.style.paddingRight = '0px';
+			}
+		}
+		body.style.paddingRight = '0px';
+		body.classList.remove('lock');
+	}, timeout);
+
+	unlock = false;
+	setTimeout(function () {
+		unlock = true;
+	}, timeout);
+}
+
+document.addEventListener('keydown', function (e) {
+	if (e.code === "Escape") {
+		const popupActive = document.querySelector('.popup-show');
+		popupClose(popupActive);
+	}
+});
+
+//  Goto
+
+const menuLinks = document.querySelectorAll('[data-goto]');
+
+if (menuLinks.length > 0) {
+	menuLinks.forEach(menuLink => {
+		menuLink.addEventListener('click', onMenuLinkClick);
+	});
+
+	function onMenuLinkClick(e) {
+		const menuLink = e.target;
+		if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
+			const gotoBlock = document.querySelector(menuLink.dataset.goto);
+			const gotoBlockValue = gotoBlock.getBoundingClientRect().top + scrollY;
+
+			window.scrollTo({
+				top: gotoBlockValue,
+				behavior: 'smooth',
+			});
+			e.preventDefault();
+		}
+	}
+}
 
 let textElement = document.querySelector(".about__text");
 let readMoreButton = document.querySelector(".about__more");
@@ -18,6 +157,7 @@ let readMoreButton = document.querySelector(".about__more");
 const ORIGINAL_HEIGHT = "original-height";
 const MIN_HEIGHT = "min-height";
 const HIDDEN_ATTR = "hidden-attr";
+const NUM_OF_IMAGES = 3;
 
 // Show more для текстового блока About
 
@@ -70,6 +210,9 @@ export let doClear = (target) => {
 		target.children[item].removeAttribute("hidden");
 	};
 	target.style.height = "auto";
+
+	viewMoreButton.style.display = "none";
+	viewMoreButton.innerHTML = "VIEW MORE";
 };
 
 export let doInit = (target, min_height) => {
@@ -78,23 +221,18 @@ export let doInit = (target, min_height) => {
 	target.style.overflow = "hidden";
 };
 
-export let doHide = (target, hiddehElements = 1) => {
+export let doHide = (target, hiddenElements = 1) => {
 	// метод скрытия элемента
 	target.setAttribute(HIDDEN_ATTR, "");
+
+	viewMoreButton.style.display = "block";
 
 	let min_height = target.getAttribute(MIN_HEIGHT);
 	target.style.height = min_height + "px";
 
-	for (let hiddehElements; hiddehElements < target.children.length; item++) {
-		target.children[hiddehElements].setAttribute("hidden", "true");
+	for (let item = hiddenElements; item < target.children.length; item++) {
+		target.children[item].setAttribute("hidden", "true");
 	}
-
-	// window.setTimeout(() => {
-	// 	// устанавливаем hidden детям
-	// 	for (let item = 1; item < target.children.length; item++) {
-	// 		target.children[item].setAttribute("hidden", "true");
-	// 	}
-	// }, 1000);
 };
 
 export let doShow = (target, fast = false) => {
@@ -103,6 +241,9 @@ export let doShow = (target, fast = false) => {
 		return;
 	}
 	target.removeAttribute(HIDDEN_ATTR);
+
+	viewMoreButton.style.display = "block";
+
 	let origHeight = target.getAttribute(ORIGINAL_HEIGHT);
 	target.style.transition = "height 0.6s ease 0s";
 	target.style.height = origHeight + "px";
@@ -126,58 +267,45 @@ export let getCurrentTab = () => {
 		}
 	}
 }
-export let loaded = () => {
+
+export let doReset = () => {
 	let currentItems = getCurrentTab().children[0];
 
 	doClear(currentItems);
 
 	let items = currentItems.children;
 	let minSize = 0;
-	const NUM_OF_IMAGES = 3;
+
 	for (let i = 0; i < items.length && i < NUM_OF_IMAGES; i++) {
 		minSize += items[i].clientHeight;
+		minSize += 15;
 	}
 
 	doInit(currentItems, minSize);
-	if (window.innerWidth <= 599.98) {
-		doHide(currentItems, 3);
+
+	if (items.length > NUM_OF_IMAGES) {
+		if (window.innerWidth <= 600) {
+			doHide(currentItems, NUM_OF_IMAGES);
+		} else {
+			doShow(currentItems);
+		}
 	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	loaded();
+	doReset();
 });
 
 tubsNavigation.addEventListener("click", (event) => {
 	if (event.target.closest(".tabs-portfolio__button")) {
 		setTimeout(() => {
-			loaded();
+			doReset();
 		});
-		// if (!viewMoreButton.hasAttribute("close"))
-		// 	viewMoreButton.setAttribute("close", "");
-		// viewMoreButton.innerHTML = "VIEW MORE";
 	}
 });
 
 window.addEventListener("resize", () => {
-	let currentItems = getCurrentTab().children[0];
-
-	doClear(currentItems);
-
-	let items = currentItems.children;
-	let minSize = 0;
-	const NUM_OF_IMAGES = 3;
-	for (let i = 0; i < items.length && i < NUM_OF_IMAGES; i++) {
-		minSize += items[i].clientHeight;
-	}
-
-	doInit(currentItems, minSize);
-
-	if (window.innerWidth <= 767.98) {
-		doHide(currentItems, 3);
-	} else {
-		doShow(currentItems);
-	}
+	doReset();
 });
 
 viewMoreButton.addEventListener("click", () => {
@@ -186,7 +314,7 @@ viewMoreButton.addEventListener("click", () => {
 	if (currentItems.hasAttribute(HIDDEN_ATTR)) {
 		doShow(currentItems);
 	} else {
-		doHide(currentItems, 3);
+		doHide(currentItems, NUM_OF_IMAGES);
 	}
 
 	if (!currentItems.hasAttribute(HIDDEN_ATTR)) {
@@ -194,172 +322,11 @@ viewMoreButton.addEventListener("click", () => {
 	} else {
 		viewMoreButton.innerHTML = "VIEW MORE";
 	}
-	// if (viewMoreButton.hasAttribute("close")) {
-	// 	viewMoreButton.removeAttribute("close");
-	// 	viewMoreButton.innerHTML = "HIDE";
-	// } else {
-	// 	viewMoreButton.setAttribute("close", "");
-	// 	viewMoreButton.innerHTML = "VIEW MORE";
-	// }
 });
-// document.addEventListener("DOMContentLoaded", () => {
-// 		if (window.innerWidth <= 599.98) {
-// 		for (let tab = 0; tab < bodyTabs.length; tab++) {
-// 			let bodyTabsItems = bodyTabs[tab].querySelector(".body-tabs__items");
-// 			let items = bodyTabsItems.children;
-// 			let minSize = 0;
-// 			const NUM_OF_IMAGES = 3;
-// 			for (let i = 0; i < items.length && i < NUM_OF_IMAGES; i++) {
-// 				minSize += items[i].clientHeight;
-// 				//minSize += Number(items[i].style.gridRowGap);
-// 			}
-// 			bodyTabsItems.setAttribute(MIN_HEIGHT, minSize);
-// 			doHide(bodyTabsItems, minSize);
-// 		}
-// 	}
-// });
-// document.addEventListener("DOMContentLoaded", () => {
-// 	if (window.innerWidth <= 479.98) {
-// 		for (let item = 0; item < bodyTabs.length; item++) {
-// 			if (!bodyTabs[item].hasAttribute("hidden")) {
-// 				// Оболочка внутри Таба
-// 				let bodyTabItem = bodyTabs[item].querySelector(".body-tabs__items");
-// 				// Коллекция изображений
-// 				let bodyTabImages = bodyTabItem.getElementsByClassName("body-tabs__item");
-// 				for (let item = 3; item < bodyTabImages.length; item++) {
-// 					bodyTabImages[item].setAttribute("hidden", "");
-// 				}
-// 			};
-// 		}
-// 	}
-// });
-
-// 
-// console.log(bodyTabsItems);
-
-
-
-// window.addEventListener("resize", () => {
-// 	if (window.innerWidth <= 599.98) {
-// 		for (let i = 0; i < bodyTabsItems.length; i++) {
-// 			// Коллекция изображений
-// 			let bodyTabImages = bodyTabsItems[i].getElementsByClassName("body-tabs__item");
-// 			for (let item = 3; item < bodyTabImages.length; item++) {
-// 				if (!bodyTabImages[item].hasAttribute("hidden")) {
-// 					bodyTabImages[item].setAttribute("hidden", "");
-// 				}
-// 			}
-// 		}
-// 	} else {
-// 		for (let i = 0; i < bodyTabsItems.length; i++) {
-// 			// Коллекция изображений
-// 			let bodyTabImages = bodyTabsItems[i].getElementsByClassName("body-tabs__item");
-// 			for (let item = 3; item < bodyTabImages.length; item++) {
-// 				bodyTabImages[item].removeAttribute("hidden");
-// 			}
-// 		}
-// 	}
-// })
 
 
 
 
-
-// document.addEventListener("DOMContentLoaded", () => {
-// 	if (window.innerWidth <= 767.98) {
-// 		for (let item = 0; item < textChildren.length; item++) {
-// 			console.log(textChildren[item].clientHeight);
-// 			// textChildren[item].setAttribute("hidden", "");
-// 		}
-// 	}
-// });
-// window.addEventListener("resize", () => {
-// 	if (window.innerWidth <= 767.98) {
-// 		for (let item = 1; item < textChildren.length; item++) {
-// 			if (!textChildren[item].hasAttribute("hidden")) {
-// 				textChildren[item].setAttribute("hidden", "");
-// 			}
-// 		}
-// 	} else {
-// 		for (let item = 1; item < textChildren.length; item++) {
-// 			textChildren[item].removeAttribute("hidden");
-// 		}
-// 	}
-// });
-
-
-
-
-// // эта ф-ция скрывает
-// export let _slideUp = (target, duration = 500, showmore = 0) => {
-// 	if (!target.classList.contains('_slide')) {
-// 		target.classList.add('_slide');
-// 		target.style.transitionProperty = 'height, margin, padding';
-// 		target.style.transitionDuration = duration + 'ms';
-// 		target.style.height = `${target.offsetHeight}px`;
-// 		target.offsetHeight;
-// 		target.style.overflow = 'hidden';
-// 		target.style.height = showmore ? `${showmore}px` : `0px`;
-// 		target.style.paddingTop = 0;
-// 		target.style.paddingBottom = 0;
-// 		target.style.marginTop = 0;
-// 		target.style.marginBottom = 0;
-// 		window.setTimeout(() => {
-// 			target.hidden = !showmore ? true : false;
-// 			!showmore ? target.style.removeProperty('height') : null;
-// 			target.style.removeProperty('padding-top');
-// 			target.style.removeProperty('padding-bottom');
-// 			target.style.removeProperty('margin-top');
-// 			target.style.removeProperty('margin-bottom');
-// 			!showmore ? target.style.removeProperty('overflow') : null;
-// 			target.style.removeProperty('transition-duration');
-// 			target.style.removeProperty('transition-property');
-// 			target.classList.remove('_slide');
-// 			// Створюємо подію 
-// 			document.dispatchEvent(new CustomEvent("slideUpDone", {
-// 				detail: {
-// 					target: target
-// 				}
-// 			}));
-// 		}, duration);
-// 	}
-// }
-// // эта ф-ция показывает
-// export let _slideDown = (target, duration = 500, showmore = 0) => {
-// 	if (!target.classList.contains('_slide')) {
-// 		target.classList.add('_slide');
-// 		target.hidden = target.hidden ? false : null;
-// 		showmore ? target.style.removeProperty('height') : null;
-// 		let height = target.offsetHeight;
-// 		target.style.overflow = 'hidden';
-// 		target.style.height = showmore ? `${showmore}px` : `0px`;
-// 		target.style.paddingTop = 0;
-// 		target.style.paddingBottom = 0;
-// 		target.style.marginTop = 0;
-// 		target.style.marginBottom = 0;
-// 		target.offsetHeight;
-// 		target.style.transitionProperty = "height, margin, padding";
-// 		target.style.transitionDuration = duration + 'ms';
-// 		target.style.height = height + 'px';
-// 		target.style.removeProperty('padding-top');
-// 		target.style.removeProperty('padding-bottom');
-// 		target.style.removeProperty('margin-top');
-// 		target.style.removeProperty('margin-bottom');
-// 		window.setTimeout(() => {
-// 			target.style.removeProperty('height');
-// 			target.style.removeProperty('overflow');
-// 			target.style.removeProperty('transition-duration');
-// 			target.style.removeProperty('transition-property');
-// 			target.classList.remove('_slide');
-// 			// Створюємо подію
-// 			document.dispatchEvent(new CustomEvent("slideDownDone", {
-// 				detail: {
-// 					target: target
-// 				}
-// 			}));
-// 		}, duration);
-// 	}
-// }
 
 
 
@@ -382,7 +349,7 @@ flsFunctions.isWebp();
 /* Добавление loaded для HTML после полной загрузки страницы */
 // flsFunctions.addLoadedClass();
 /* Модуль для роботы с меню (Бургер) */
-flsFunctions.menuInit();
+// flsFunctions.menuInit();
 /* Вычисление плавающей панели на мобильных устройствах при 100vh */
 // flsFunctions.fullVHfix();
 
@@ -426,7 +393,7 @@ flsFunctions.tabs();
 Документация: https://template.fls.guru/template-docs/funkcional-popup.html
 Сниппет (HTML): pl, pop
 */
-import './libs/popup.js'
+// import './libs/popup.js'
 
 /*
 Модуль параллакса мышью
@@ -441,12 +408,12 @@ import * as flsForms from "./files/forms/forms.js";
 
 /* Работа с полями формы */
 /* Документация: https://template.fls.guru/template-docs/rabota-s-formami.html */
-/*
+
 flsForms.formFieldsInit({
 	viewPass: false,
 	autoHeight: false
 });
-*/
+
 /* Отправка формы */
 /* Документация: https://template.fls.guru/template-docs/rabota-s-formami.html */
 // flsForms.formSubmit();

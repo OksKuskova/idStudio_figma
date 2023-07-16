@@ -1,6 +1,4 @@
-.popup-show body::after {
-	opacity: 1;
-}
+
 .popup {
 	position: fixed;
 	top: 0;
@@ -11,16 +9,6 @@
 	transition: visibility 0.8s ease 0s;
 	visibility: hidden;
 	pointer-events: none;
-}
-.popup_show {
-	z-index: 150;
-	visibility: visible;
-	overflow: auto;
-	pointer-events: auto;
-}
-.popup_show .popup__content {
-	visibility: visible;
-	transform: scale(1);
 }
 .popup__wrapper {
 	display: flex;
@@ -39,10 +27,8 @@
 	padding: 50px 40px 40px;
 	width: 100%;
 	max-width: 500px;
-	border-radius: 10px;
-	.lock & {
-		visibility: visible;
-	}
+	border-radius: 10px;	
+	position: relative;
 }
 .popup__close {
 	position: absolute;		
@@ -53,6 +39,20 @@
 	padding: 5px;
 }
  
+.popup-show {
+	z-index: 150;
+	visibility: visible;
+	overflow: auto;
+	pointer-events: auto;	
+}
+.popup-show .popup__content {
+	visibility: visible;
+	transform: scale(1);
+}
+.popup-open body::after {
+	opacity: 1;
+}
+
 .popup__form {
 
 }
@@ -86,4 +86,3 @@
 		}		
 	}
 }
-

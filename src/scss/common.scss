@@ -67,17 +67,21 @@ body::after {
 	border-radius: 8px;
 	font-weight: 700;	
 	line-height: 1.5;	
+	text-align: center;
 	text-transform: uppercase;		
 	@media (min-width:$mobile){
 		padding: 12px 34px;
 	}
+
 	&_hover {
 		transition: background-color 0.5s ease 0s,
 		border-color 0.3s ease 0s;
-		&:hover {
-			background-color: #F5C58A;
-			border-color: #F5C58A;
-		}
+		@media (any-hover: hover) {
+			&:hover {
+				background-color: #F5C58A;
+				border-color: #F5C58A;
+			}
+		}		
 	}
 }
 
@@ -98,11 +102,13 @@ body::after {
 			fill: $goldColor;
 			transition: fill 0.3s ease 0s;
 		}
-		&:hover {
-			svg {
-				fill: #F5C58A;
+		@media (any-hover: hover) {
+			&:hover {
+				svg {
+					fill: #F5C58A;
+				}
 			}
-		}
+		}		
 	}
 }
 
@@ -118,9 +124,12 @@ body::after {
 		background-color: $goldColor;
 		transition: all 0.3s ease 0s;
 	}
-	&:hover {
-		&::after {
-			width: 100%;
+	@media (any-hover: hover) {
+		&:hover {
+			&::after {
+				width: 100%;
+			}
 		}
 	}
+	
 }
